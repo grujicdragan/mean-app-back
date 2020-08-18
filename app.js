@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 
 
+
 mongoose.connect(config.database, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -20,6 +21,8 @@ mongoose.connect(config.database, {
 });
 
 const app = express();
+
+
 
 const users = require('./routes/users');
 
