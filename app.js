@@ -24,7 +24,7 @@ const users = require('./routes/users');
 
 const port = process.env.PORT || 3000;
 
-app.use(cors({ "origin": "*" }));
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
