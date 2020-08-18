@@ -6,6 +6,8 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
+
+
 mongoose.connect(config.database, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -19,10 +21,6 @@ mongoose.connect(config.database, {
 });
 
 const app = express();
-
-const users = require('./routes/users');
-
-const port = process.env.PORT || 3000;
 
 app.use(cors({ "origin": "*" }));
 
@@ -38,6 +36,11 @@ app.use(function(req, res, next) {
 
     next();
 });
+
+const users = require('./routes/users');
+
+const port = process.env.PORT || 3000;
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
