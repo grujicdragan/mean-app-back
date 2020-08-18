@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 
 
-
 mongoose.connect(config.database, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -22,24 +21,11 @@ mongoose.connect(config.database, {
 
 const app = express();
 
-app.use(cors({ "origin": "*" }));
-
-app.use(function(req, res, next) {
-
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:https://grujicdragan.github.io/mean-app-ng/');
-
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    next();
-});
-
 const users = require('./routes/users');
 
 const port = process.env.PORT || 3000;
+
+app.use(cors());
 
 
 app.use(express.static(path.join(__dirname, 'public')));
