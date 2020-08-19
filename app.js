@@ -22,7 +22,7 @@ mongoose.connect(config.database, {
 
 const app = express();
 
-
+app.use(cors({ "origin": "*" }));
 
 const users = require('./routes/users');
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
 
@@ -30,7 +30,7 @@ module.exports.getUserByEmail = (email, callback) => {
 
 module.exports.addUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, null, (err, hash) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
             newUser.password = hash;
             newUser.save(callback);
