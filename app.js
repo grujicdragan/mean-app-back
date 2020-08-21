@@ -6,8 +6,6 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
-
-
 mongoose.connect(config.database, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -25,6 +23,7 @@ const app = express();
 app.use(cors({ "origin": "*" }));
 
 const users = require('./routes/users');
+const times = require('./routes/times');
 
 const port = process.env.PORT || 3000;
 
@@ -40,6 +39,7 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
+app.use('/times', times);
 
 app.get('/', (req, res) => {
     res.send('Invalid Endpoint');

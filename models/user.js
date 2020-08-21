@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const config = require('../config/database');
-
 
 const UserSchema = mongoose.Schema({
     name: {
@@ -9,12 +7,19 @@ const UserSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
         required: true
     }
+});
+
+UserSchema.virtual('times', {
+    ref: "Time",
+    localField: "_id",
+    foreignField: "user"
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -31,7 +36,9 @@ module.exports.getUserByEmail = (email, callback) => {
 module.exports.addUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
+            if (err) {
+                throw err;
+            }
             newUser.password = hash;
             newUser.save(callback);
         });
