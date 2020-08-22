@@ -9,13 +9,21 @@ const UserSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
         required: true
     }
 });
+
+UserSchema.virtual('times', {
+    ref: "Time",
+    localField: "_id",
+    foreignField: "user"
+});
+
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
